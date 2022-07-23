@@ -1,19 +1,15 @@
 #!/usr/bin/env ruby
-		require 'libui'
-		require 'colorize'
-		UI = LibUI
-		UI.init
-		main_window = UI.new_window('StickyPostRR', 400, 200, 1)
-		UI.window_on_closing(main_window) do
-		puts '==> Program exited!'.colorize(:red)
-		UI.control_destroy(main_window)
-		UI.quit
-  		0
-		end
-		vbox = UI.new_vertical_box
-		UI.window_set_child(main_window, vbox)
-		entry = UI.new_non_wrapping_multiline_entry
-		UI.box_append(vbox, entry, 1)
-		UI.control_show(main_window)
-		UI.main
-		UI.quit
+require 'glimmer-dsl-libui'
+require 'colorize'
+
+include Glimmer
+
+window('StickyPostRR', 400, 200) {
+  vertical_box {
+    non_wrapping_multiline_entry
+  }
+  
+  on_closing do
+    puts '==> Program exited!'.colorize(:red)
+  end
+}.show
